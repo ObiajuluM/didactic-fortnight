@@ -4,7 +4,6 @@ import "./App.css";
 function App() {
   // function signUp(event) {
   //   event.preventDefault();
-
   //
   //   const formData = new FormData(event.currentTarget);
   //   const email = formData.get("email");
@@ -17,14 +16,26 @@ function App() {
   // react 19 way
   // automatic event.preventDefault() and form reset after submission
   // and the form data is passed as the first argument
-  function signUp(formData) {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const employmentStatus = formData.get("employmentStatus");
-    const dietaryRestrictions = formData.getAll("dietaryRestrictions"); // getAll for checkboxes to get all selected values
+  // function signUp(formData) {
+  //   const email = formData.get("email");
+  //   const password = formData.get("password");
+  //   const employmentStatus = formData.get("employmentStatus");
+  //   const dietaryRestrictions = formData.getAll("dietaryRestrictions"); // getAll for checkboxes to get all selected values
+  //   const favColor = formData.get("favColor");
 
-    console.log({ email, password, employmentStatus }); // object shorthand to log an object with those two values.
-    console.log(dietaryRestrictions);
+  //   console.log({ email, password, employmentStatus }); // object shorthand to log an object with those two values.
+  //   console.log(dietaryRestrictions);
+  //   console.log(favColor);
+  // }
+
+  // for bigger forms with many inputs
+  function signUp(formData) {
+    // convert formData to a plain object
+    const data = Object.fromEntries(formData);
+    // for checkboxes with multiple values, we need to handle them separately
+    data.dietaryRestrictions = formData.getAll("dietaryRestrictions");
+
+    console.log(data);
   }
 
   return (
@@ -62,8 +73,6 @@ function App() {
           placeholder="Enter your password"
         />
         <br />
-
-        <button type="submit">Sign Up</button>
 
         {/* text area example for bigger inputs*/}
         <label htmlFor=""></label>
@@ -124,6 +133,32 @@ function App() {
             kosher
           </label>
         </fieldset>
+
+        {/*  */}
+        <label htmlFor="favColor">What is your favorite color?</label>
+        <select
+          id="favColor"
+          name="favColor"
+          defaultValue=""
+          required={true} // make selection mandatory
+        >
+          <option
+            value=""
+            disabled={true} // you do not want this option to be selectable
+          >
+            --choose a color--
+          </option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+          <option value="pink">Pink</option>
+          <option value="purple">Purple</option>
+        </select>
+
+        <br />
+        <br />
+        <button type="submit">Sign Up</button>
       </form>
     </section>
   );
