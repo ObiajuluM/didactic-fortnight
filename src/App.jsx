@@ -1,5 +1,5 @@
 import "./App.css";
-import Joke from "./components/Joke.jsx";
+import Joke from "./components/joke.jsx";
 
 function App() {
   return (
